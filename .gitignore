@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.sqlite3
+db.sqlite3
+staticfiles/
+media/
+
+# Node
+node_modules/
+dist/
+.vite/
+*.local
+*.tsbuildinfo
+
+# Entorno
+.env
+.env.*
+!.env.example
+
+# Editores / SO
+.vscode/
+.idea/
+.DS_Store
+
+# Herramientas
+.pytest_cache/
+.ruff_cache/
+coverage.xml
+htmlcov/
