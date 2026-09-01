@@ -164,13 +164,15 @@ SPECTACULAR_SETTINGS = {
     },
 }
 
-CORS_ALLOWED_ORIGINS = env_list(
-    "CORS_ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
+# Origenes permitidos. Ademas del dev server de Vite se incluyen los del WebView
+# de Capacitor: Android sirve el bundle en https://localhost y iOS en
+# capacitor://localhost. Es una lista explicita a proposito, no CORS_ALLOW_ALL.
+DEFAULT_CLIENT_ORIGINS = (
+    "http://localhost:5173,http://127.0.0.1:5173,https://localhost,capacitor://localhost"
 )
+CORS_ALLOWED_ORIGINS = env_list("CORS_ALLOWED_ORIGINS", DEFAULT_CLIENT_ORIGINS)
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = env_list(
-    "CSRF_TRUSTED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
-)
+CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS", DEFAULT_CLIENT_ORIGINS)
 
 # Radio por defecto (km) para la busqueda de profesionales cercanos.
 DEFAULT_SEARCH_RADIUS_KM = float(os.getenv("DEFAULT_SEARCH_RADIUS_KM", "5"))

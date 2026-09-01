@@ -1,7 +1,12 @@
 /** Cliente HTTP minimo para la API de Serviprox. */
 import type { Paginated } from '@/types';
+import { storage } from '@/services/storage';
 
-const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000/api/v1';
+// Unica fuente de la URL de la API. El fallback existe solo para desarrollo Web:
+// en Android/iOS `localhost` apunta al propio dispositivo, asi que el build movil
+// siempre debe definir VITE_API_URL con un dominio HTTPS accesible.
+const DEV_FALLBACK_URL = 'http://localhost:8000/api/v1';
+const BASE_URL = (import.meta.env.VITE_API_URL ?? DEV_FALLBACK_URL).replace(/\/+$/, '');
 const TOKEN_KEY = 'serviprox.access_token';
 
 export class ApiError extends Error {
@@ -15,12 +20,12 @@ export class ApiError extends Error {
 }
 
 export function getToken(): string | null {
-  return localStorage.getItem(TOKEN_KEY);
+  return storage.get(TOKEN_KEY);
 }
 
 export function setToken(token: string | null): void {
-  if (token) localStorage.setItem(TOKEN_KEY, token);
-  else localStorage.removeItem(TOKEN_KEY);
+  if (token) storage.set(TOKEN_KEY, token);
+  else storage.remove(TOKEN_KEY);
 }
 
 type Query = Record<string, string | number | boolean | undefined | null>;

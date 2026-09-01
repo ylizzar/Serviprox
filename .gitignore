@@ -30,3 +30,11 @@ dist/
 .ruff_cache/
 coverage.xml
 htmlcov/
+
+# Capacitor (proyectos nativos generados; el codigo fuente vive en frontend/src)
+frontend/android/local.properties
+frontend/android/app/src/main/assets/public/
+frontend/android/app/src/main/assets/capacitor.config.json
+frontend/ios/App/App/public/
+frontend/ios/App/Pods/
+frontend/ios/App/App/capacitor.config.json
